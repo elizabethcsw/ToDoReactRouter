@@ -57,6 +57,9 @@ function validate(values) {
   if (!values.title) {
     errors.title = "Enter a title!"
   }
+  if (values.title.length < 3) {
+    errors.title = "Enter a title that has at least 3 characters!"
+  }
   if (!values.tags) {
     errors.tags = "Enter a tags!"
   }
