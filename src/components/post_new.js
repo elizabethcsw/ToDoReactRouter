@@ -53,7 +53,18 @@ function mapStateToProps(state) {
 }
 
 function validate(values) {
-  const errors = {}
+  const errors = {};
+  if (!values.title) {
+    errors.title = "Enter a title!"
+  }
+  if (!values.tags) {
+    errors.tags = "Enter a tags!"
+  }
+  if (!values.content) {
+    errors.content = "Enter a content!"
+  }
+
+  return errors;
 }
 
 export default reduxForm({
