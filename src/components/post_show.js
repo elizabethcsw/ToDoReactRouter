@@ -1,31 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { showPost } from '../actions';
+import { fetchPost } from '../actions';
 
 class PostShow extends Component {
   constructor(props){
     super(props);
-
-    this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
-  onFormSubmit(values) {
-    this.props.createPost(values, () => {
-      this.props.history.push('/');
-    });
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    this.props.fetchPost(id);
   }
-
 
   render() {
-    const { handleSubmit } = this.props
+    const { post } = this.props;
 
+    if (!post) {
+      return (<div>Loading</div>)
+    }
+    
     return (
-      <div>
-
+      <div>yiuouy
+        <h3>{post.title}</h3>
+        <h6>{post.categories}</h6>
+        <p>{post.content}</p>
       </div>
     );
   }
 }
 
-export default connect(null, { showPost })(PostShow);
+function mapStateToProps({ posts }, ownProps) {
+  return {
+    post: posts[ownProps.match.params.id]
+  };
+}
+
+export default connect(mapStateToProps, { fetchPost })(PostShow);
